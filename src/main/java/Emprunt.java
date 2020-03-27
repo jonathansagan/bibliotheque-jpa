@@ -1,15 +1,19 @@
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 // Table client
 @Entity // obligatoire
 @Table(name = "emprunt") // optionnel, si le nom de la Classe est différent de celui de la table
@@ -25,11 +29,16 @@ public class Emprunt {
 	private Integer ID_CLIENT;
 	
 	
-	@OneToMany(mappedBy="emprunt")
-	private Set<Livre> livres; // référence vers les livres
-	public Emprunt() {
-	livres = new HashSet<Livre>();
-	}
+	@ManyToOne
+	@JoinColumn(name="ID_CLIENT")
+	private Client client;
+
+	@ManyToMany
+	@JoinTable ( name = "compo", 
+				joinColumns = @JoinColumn(name = "ID_LIV", referencedColumnName = "ID"),
+				inverseJoinColumns = @JoinColumn(name = "ID_EMP",referencedColumnName = "ID")
+	)
+	private Set<Livre> livre;
 	
 	/** Constructeur
 	 * @param iD
@@ -45,6 +54,9 @@ public class Emprunt {
 		this.DATE_FIN = DATE_FIN;
 		this.DELAI = DELAI;
 		this.ID_CLIENT = ID_CLIENT;
+	}
+	public Emprunt() {
+		
 	}
 	
 	public Integer getID() {
@@ -86,5 +98,6 @@ public class Emprunt {
 	public void setID_CLIENT(Integer ID_CLIENT) {
 		ID_CLIENT = ID_CLIENT;
 	}
+	
 	
 }

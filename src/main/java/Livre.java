@@ -1,7 +1,10 @@
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 // Table livre
@@ -16,6 +19,9 @@ public class Livre {
 	private Integer ID;
 	private String TITRE;
 	private String AUTEUR;
+	
+	@ManyToMany(mappedBy = "livre")
+	private List<Emprunt> emprunt;
 	
 	/** Constructeur
 	 * @param ID
@@ -61,7 +67,9 @@ public class Livre {
 		return "Livre [ID=" + ID + ", TITRE=" + TITRE + ", AUTEUR=" + AUTEUR + "]";
 	}
 	
-	
+	public List<Emprunt> getEmprunt() {
+		return emprunt;
+	}
 	
 	
 

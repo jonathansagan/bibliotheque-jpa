@@ -20,11 +20,13 @@ public class Client {
 	private String NOM;
 	private String PRENOM;
 	
-	@OneToMany(mappedBy="client")
-	private Set<Emprunt> emprunts; // référence vers les livres
+	@OneToMany(mappedBy="client") 
+	private Set<Emprunt> emprunts; // référence vers les chambres
+
+
 	public Client() {
-	emprunts = new HashSet<Emprunt>();
-	}
+		emprunts = new HashSet<Emprunt>(); 
+	} 
 	
 	/** Constructeur
 	 * @param ID
@@ -36,6 +38,7 @@ public class Client {
 		this.NOM = NOM;
 		this.PRENOM = PRENOM;
 	}
+	
 
 	public Integer getID() {
 		return ID;
@@ -64,6 +67,11 @@ public class Client {
 	@Override
 	public String toString() {
 		return "Client [ID=" + ID + ", NOM=" + NOM + ", PRENOM=" + PRENOM + "]";
+	}
+
+	public Set<Emprunt> getEmprunts() {
+		// TODO Auto-generated method stub
+		return emprunts;
 	}
 
 }
